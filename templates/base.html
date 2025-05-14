@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}BacktestBob{% endblock %}</title>
+
+    <!-- Main site stylesheet -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+
+    <style>
+      /* Base resets */
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: 'Inter', sans-serif;
+        background: #f9f9f9;
+        color: #111;
+        line-height: 1.6;
+      }
+
+      /* Header & Nav */
+      header {
+        background: #fff;
+        padding: 1rem 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #eee;
+      }
+      #logo {
+        height: 40px;
+      }
+      .navbar {
+        display: flex;
+        align-items: center;
+      }
+      .nav-item {
+        position: relative;
+        margin-left: 1rem;
+      }
+      .nav-link {
+        color: #111;
+        text-decoration: none;
+        font-weight: 600;
+        padding: 0.5rem;
+      }
+      .nav-link:hover {
+        text-decoration: underline;
+      }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        border-radius: 4px;
+        top: 100%;
+        left: 0;
+        min-width: 160px;
+        z-index: 100;
+      }
+      .dropdown-content a {
+        display: block;
+        padding: 0.75rem 1rem;
+        color: #333;
+        text-decoration: none;
+      }
+      .dropdown-content a:hover {
+        background: #f0f0f0;
+      }
+      .nav-item:hover .dropdown-content {
+        display: block;
+      }
+
+      /* Page wrapper */
+      main {
+        padding: 2rem 1rem;
+      }
+
+      /* Containers & sections */
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 5rem 2rem;
+        text-align: center;
+      }
+      .alt-section {
+        background: #f0f0f0;
+      }
+
+      /* Typography */
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+      }
+      h2 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
+      p.subtitle {
+        font-size: 1.25rem;
+        color: #333;
+        margin-bottom: 2rem;
+      }
+
+      /* Forms */
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+      input[type="email"] {
+        padding: 0.75rem 1rem;
+        width: 100%;
+        max-width: 400px;
+        font-size: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      }
+      button {
+        background-color: #0070f3;
+        color: #fff;
+        padding: 0.75rem 2rem;
+        border: none;
+        font-size: 1rem;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #005bb5;
+      }
+
+      /* Utility text */
+      .highlight { font-weight: 600; color: #0070f3; }
+      .note { margin-top: 1rem; font-size: 0.95rem; color: #555; }
+      .section p { font-size: 1.1rem; color: #333; line-height: 1.6; }
+
+      /* Grid cards */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 2rem;
+        text-align: left;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .grid div {
+        background: #fff;
+        padding: 1rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      }
+
+      /* Tables */
+      table {
+        width: 100%;
+        margin: 2rem 0;
+        border-collapse: collapse;
+      }
+      th, td {
+        padding: 0.75rem;
+        border-bottom: 1px solid #ccc;
+      }
+
+      /* Footer */
+      footer {
+        background: #fff;
+        padding: 1rem 2rem;
+        text-align: center;
+        border-top: 1px solid #eee;
+        margin-top: 3rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header/Nav -->
+    <header>
+      <a href="{{ url_for('index') }}">
+        <img src="{{ url_for('static', filename='backtestbob.png') }}"
+             alt="BacktestBob logo" id="logo" />
+      </a>
+      <nav class="navbar">
+        <div class="nav-item">
+          <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+        </div>
+        <div class="nav-item">
+          <span class="nav-link">Calculators ▾</span>
+          <div class="dropdown-content">
+            <a href="/dash/compound-interest/">Compound Interest</a>
+            <a href="/dash/pension-drawdown/">Pension Drawdown</a>
+          </div>
+        </div>
+        <div class="nav-item">
+          <a href="{{ url_for('blog.list_posts') }}" class="nav-link">Blog</a>
+        </div>
+        <div class="nav-item">
+          <a href="{{ url_for('admin.login') }}" class="nav-link">Admin</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Page content -->
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>© {{ current_year() }} BacktestBob</p>
+    </footer>
+  </body>
+</html>

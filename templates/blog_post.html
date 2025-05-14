@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.4">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">{% extends 'base.html' %}</p>
+<p class="p1">{% block title %}{{ post.title }} — BacktestBob{% endblock %}</p>
+<p class="p1">{% block content %}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;article&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;{{ post.title }}&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;&lt;time datetime="{{ post.published_at.isoformat() }}"&gt;{{ post.published_at.strftime('%B %d, %Y') }}&lt;/time&gt;&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{% if post.image %}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;img src="{{ url_for('static', filename=post.image) }}" alt="{{ post.title }}" class="img-fluid mb-3" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>{% endif %}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="mb-5"&gt;{{ post.body|safe }}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/article&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;section id="comments"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;h3&gt;Comments&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;ul class="list-unstyled"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{% for comment in post.comments %}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;li class="mb-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;strong&gt;{{ comment.author }}&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;small&gt;{{ comment.created_at.strftime('%Y-%m-%d %H:%M') }}&lt;/small&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p&gt;{{ comment.body }}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{% else %}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;li&gt;No comments yet.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{% endfor %}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/ul&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;form method="post"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label for="author"&gt;Name&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input name="author" id="author" class="form-control" required&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="form-group"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;label for="body"&gt;Comment&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea name="body" id="body" class="form-control" rows="3" required&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button type="submit" class="btn btn-primary"&gt;Submit Comment&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/section&gt;</p>
+<p class="p1">{% endblock %}</p>
+</body>
+</html>

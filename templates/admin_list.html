@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}Manage Posts — BacktestBob{% endblock %}
+
+{% block content %}
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2>All Posts</h2>
+    <a href="{{ url_for('admin.edit_post', post_id=0) }}" class="btn btn-success">+ New Post</a>
+  </div>
+  <table class="table table-striped mt-3">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Slug</th>
+        <th>Published</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in posts %}
+        <tr>
+          <td>{{ p.title }}</td>
+          <td>{{ p.slug }}</td>
+          <td>{{ p.published_at.strftime('%Y-%m-%d') }}</td>
+          <td>
+            <a href="{{ url_for('admin.edit_post', post_id=p.id) }}" class="btn btn-sm btn-primary">Edit</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
