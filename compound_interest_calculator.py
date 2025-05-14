@@ -4,24 +4,18 @@ from dash.dependencies import Input, Output, State
 import plotly.graph_objs as go
 from datetime import datetime
 
-# ----------------------------------------------------------------------------
-# Factory to create Dash app with shared header/nav
-# ----------------------------------------------------------------------------
-external_stylesheets = [
-    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css'
-]
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
-def create_dash_app(server, url_base_pathname='/dash/pension-drawdown/'):
-    # Initialize Dash with Flask server and URL prefix
+def create_dash_app(server, url_base_pathname='/dash/compound-interest/'):
     app = dash.Dash(
         __name__,
         server=server,
         url_base_pathname=url_base_pathname,
         external_stylesheets=external_stylesheets
     )
-    app.title = 'UK Pension Drawdown — BacktestBob'
+    app.title = 'Compound Interest Calculator'
 
-    # Inline full HTML with your header/nav/footer
+    # Inline full header/nav/footer—no Jinja extends
     year = datetime.utcnow().year
     app.index_string = f'''
 <!DOCTYPE html>
@@ -32,46 +26,13 @@ def create_dash_app(server, url_base_pathname='/dash/pension-drawdown/'):
     {{%favicon%}}
     {{%css%}}
 
-    <!-- Google Font & main stylesheet -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap"
-      rel="stylesheet"
-    />
+    <!-- Main stylesheet & font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/css/style.css">
-
-    <style>
-      /* Any small tweaks can go here */
-      body {{ margin:0; font-family:'Inter',sans-serif; background:#f9f9f9; }}
-      header {{ background:#fff; padding:1rem 2rem; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #eee; }}
-      #logo {{ height:40px; }}
-      .navbar {{ display:flex; }}
-      .nav-item {{ position:relative; margin-left:1rem; }}
-      .nav-link {{ color:#111; text-decoration:none; font-weight:600; padding:0.5rem; }}
-      .nav-item:hover .dropdown-content {{ display:block; }}
-      .dropdown-content {{
-        display:none;
-        position:absolute;
-        top:100%; left:0;
-        background:#fff;
-        box-shadow:0 2px 8px rgba(0,0,0,0.1);
-        border-radius:4px;
-        min-width:160px;
-        z-index:100;
-      }}
-      .dropdown-content a {{
-        display:block;
-        padding:0.75rem 1rem;
-        color:#333;
-        text-decoration:none;
-      }}
-      .dropdown-content a:hover {{ background:#f0f0f0; }}
-      main.container {{ padding:2rem 1rem; }}
-      footer {{ background:#fff; padding:1rem 2rem; text-align:center; border-top:1px solid #eee; margin-top:2rem; }}
-    </style>
   </head>
   <body>
     <header>
-      <a href="/"><img src="/static/backtestbob.png" id="logo" alt="BacktestBob logo" /></a>
+      <a href="/"><img src="/static/backtestbob.png" id="logo" alt="BacktestBob logo"></a>
       <nav class="navbar">
         <div class="nav-item"><a href="/" class="nav-link">Home</a></div>
         <div class="nav-item">
@@ -101,137 +62,171 @@ def create_dash_app(server, url_base_pathname='/dash/pension-drawdown/'):
 </html>
 '''
 
-    # Define the Dash layout
-    app.layout = html.Div(className='container', children=[
-        html.H2("UK Pension Drawdown + State Pension", style={'marginBottom': '1.5rem'}),
-        html.Div(className='row', children=[
-            html.Div(className='col-md-6', children=[
-                html.Label("Current Pension Pot (£)"),
-                dcc.Input(id='pot', type='number', value=200000, className='form-control'),
-                html.Br(),
-
-                html.Label("Annual Drawdown Desired (£/yr)"),
-                dcc.Input(id='drawdown', type='number', value=15000, className='form-control'),
-                html.Br(),
-
-                html.Label("Expected Annual Return (%)"),
-                dcc.Input(id='return_rate', type='number', value=5, className='form-control'),
-                html.Br(),
-
-                html.Label("Inflation Rate (%)"),
-                dcc.Input(id='inflation', type='number', value=2, className='form-control'),
-                html.Br(),
-
-                html.Label("Age at Start of Drawdown"),
-                dcc.Input(id='start_age', type='number', value=60, className='form-control'),
-                html.Br(),
-
-                html.Label("Age to Draw Until"),
-                dcc.Input(id='end_age', type='number', value=95, className='form-control'),
-                html.Br(),
-
-                html.Label("State Pension Age"),
-                dcc.Input(id='state_age', type='number', value=67, className='form-control'),
-                html.Br(),
-
-                html.Label("Current Annual State Pension (£/yr)"),
-                dcc.Input(id='state_amount', type='number', value=10000, className='form-control'),
-                html.Br(),
-
-                html.Button('Calculate', id='calc-btn', n_clicks=0,
-                            className='btn btn-primary'),
-            ]),
-            html.Div(className='col-md-6', children=[
-                html.H4(id='depletion-text',
-                        style={'marginTop': '1rem'}),
-                dcc.Graph(id='pot-chart'),
-            ]),
+    # The calculator’s layout
+    app.layout = html.Div(style={'fontFamily': 'Arial, sans-serif'}, children=[
+        html.Div(style={'padding':'10px'}, children=[
+            html.Label("Principal Amount (£):"),
+            dcc.Input(id='principal', type='number', value=1000, min=0, step=100)
         ]),
+        html.Div(style={'padding':'10px'}, children=[
+            html.Label("Annual Interest Rate (%):"),
+            dcc.Input(id='rate', type='number', value=5, min=0, step=0.1)
+        ]),
+        html.Div(style={'padding':'10px'}, children=[
+            html.Label("Times Compounded Per Year:"),
+            dcc.Input(id='n', type='number', value=12, min=1, step=1),
+            html.P(
+                "Compounding frequency refers to how many times interest is applied per year. "
+                "1 = yearly, 12 = monthly, 365 = daily.",
+                style={'fontStyle':'italic','marginTop':'5px'}
+            )
+        ]),
+        html.Div(style={'padding':'10px'}, children=[
+            html.Label("Number of Years:"),
+            dcc.Input(id='years', type='number', value=10, min=1, step=1)
+        ]),
+
+        # step-by-step toggle + controls
+        html.Div(style={'padding':'10px'}, children=[
+            dcc.Checklist(
+                options=[{'label':' Enable step-by-step chart','value':'step'}],
+                value=[], id='step-mode', inline=True
+            )
+        ]),
+        html.Div(style={'padding':'10px'}, children=[
+            html.Button('Step Year', id='step-btn', n_clicks=0),
+            html.Button('Reset', id='reset-btn', n_clicks=0)
+        ]),
+        dcc.Store(id='current-year', data=0),
+
         html.Hr(),
+        html.Div(id='summary-info', style={'fontSize':'18px','margin':'10px 0'}),
+        html.Div(id='output-text', style={'fontSize':'20px','margin':'20px 0'}),
+
         dash_table.DataTable(
-            id='results-table',
+            id='summary-table',
             columns=[
-                {'name': 'Age', 'id': 'age'},
-                {'name': 'Start Pot (£)', 'id': 'start_pot'},
-                {'name': 'State Pension Received (£)', 'id': 'state_pension'},
-                {'name': 'Private Drawdown (£)', 'id': 'private_withdrawal'},
-                {'name': 'End Pot (£)', 'id': 'end_pot'},
+                {'name':'Year','id':'Year'},
+                {'name':'Start Balance (£)','id':'Start'},
+                {'name':'Interest Earned (£)','id':'Interest'},
+                {'name':'Cumulative Interest (£)','id':'CumInterest'},
+                {'name':'End Balance (£)','id':'End'}
             ],
-            style_table={'overflowX': 'auto', 'marginTop': '1rem'},
-            style_cell={'textAlign': 'right', 'padding': '5px'},
-            style_header={'fontWeight': 'bold'}
-        )
+            data=[],
+            style_table={'overflowX':'auto','marginBottom':'20px'},
+            style_cell={'textAlign':'center','padding':'5px'},
+            style_header={'fontWeight':'bold'}
+        ),
+        dcc.Graph(id='growth-graph')
     ])
 
-    # Callback to compute results
+    # Callback to handle stepping
     @app.callback(
-        Output('results-table', 'data'),
-        Output('pot-chart', 'figure'),
-        Output('depletion-text', 'children'),
-        Input('calc-btn', 'n_clicks'),
-        State('pot', 'value'),
-        State('drawdown', 'value'),
-        State('return_rate', 'value'),
-        State('inflation', 'value'),
-        State('start_age', 'value'),
-        State('end_age', 'value'),
-        State('state_age', 'value'),
-        State('state_amount', 'value'),
+        Output('current-year','data'),
+        [Input('step-btn','n_clicks'),
+         Input('reset-btn','n_clicks'),
+         Input('years','value')],
+        [State('current-year','data'),
+         State('step-mode','value')]
     )
-    def update_drawdown(n, pot, drawdown, return_rate, inflation,
-                        start_age, end_age, state_age, state_amount):
-        # Convert rates
-        r = return_rate / 100
-        i = inflation / 100
+    def update_current_year(step_clicks, reset_clicks, years_val, current, mode):
+        if 'step' not in mode:
+            return years_val
+        ctx = dash.callback_context
+        if not ctx.triggered:
+            return current
+        trigger = ctx.triggered[0]['prop_id'].split('.')[0]
+        if trigger in ['years','reset-btn']:
+            return 0
+        if trigger=='step-btn':
+            return min(current+1, years_val)
+        return current
 
-        years = list(range(start_age, end_age + 1))
-        data = []
-        current_pot = pot
-        depleted_age = None
+    # Main callback for table, chart, summary
+    @app.callback(
+        [Output('summary-info','children'),
+         Output('output-text','children'),
+         Output('growth-graph','figure'),
+         Output('summary-table','data'),
+         Output('summary-table','columns')],
+        [Input('principal','value'),
+         Input('rate','value'),
+         Input('n','value'),
+         Input('years','value'),
+         Input('current-year','data'),
+         Input('step-mode','value')]
+    )
+    def update_output(principal, rate, n, years_val, disp_year, mode):
+        try:
+            P0 = float(principal)
+            r = float(rate)/100.0
+            n = int(n)
+            years_val = int(years_val)
 
-        for age in years:
-            # Compute state pension & withdrawal
-            state_pension = 0
-            if age >= state_age:
-                state_pension = state_amount * ((1 + i) ** (age - state_age))
-            private_withdrawal = max(drawdown - state_pension, 0)
+            tps = list(range(years_val+1))
+            bals = [P0*(1+r/n)**(n*t) for t in tps]
+            maxb= max(bals)
 
-            start_p = current_pot
-            current_pot = start_p * (1 + r) - private_withdrawal
-            end_pot = max(current_pot, 0)
+            rows=[]
+            for i,t in enumerate(tps):
+                st = bals[i-1] if i else P0
+                en = bals[i]
+                int_ = en-st
+                cum = en-P0
+                rows.append({
+                    'Year':t,
+                    'Start':f"£{st:,.2f}",
+                    'Interest':f"£{int_:,.2f}",
+                    'CumInterest':f"£{cum:,.2f}",
+                    'End':f"£{en:,.2f}"
+                })
 
-            if depleted_age is None and current_pot <= 0:
-                depleted_age = age
+            if 'step' in mode:
+                idx=min(disp_year, years_val)
+                xs = tps[:idx+1] if idx else []
+                ys = bals[:idx+1] if idx else []
+            else:
+                xs,ys = tps,bals
 
-            data.append({
-                'age': age,
-                'start_pot': f"{start_p:,.0f}",
-                'state_pension': f"{state_pension:,.0f}",
-                'private_withdrawal': f"{private_withdrawal:,.0f}",
-                'end_pot': f"{end_pot:,.0f}",
-            })
-
-        message = (
-            f"⚠️ Your pot will run out at age {depleted_age}."
-            if depleted_age else
-            f"✅ Your pot lasts beyond age {end_age}."
-        )
-
-        fig = {
-            'data': [{
-                'x': years,
-                'y': [float(r.replace(',', '')) for r in [row['end_pot'] for row in data]],
-                'mode': 'lines+markers',
-                'name': 'End Pot (£)'
-            }],
-            'layout': {
-                'title': 'Pension Pot Over Time',
-                'xaxis': {'title': 'Age'},
-                'yaxis': {'title': 'Pot Value (£)'},
-                'margin': {'l': 50, 'r': 20, 't': 40, 'b': 50}
+            fig = {
+                'data':[] if not xs else [go.Scatter(x=xs,y=ys,mode='lines+markers')],
+                'layout':go.Layout(
+                    title='Investment Growth Over Time',
+                    xaxis={'title':'Years','range':[0,years_val+1]},
+                    yaxis={'title':'Balance (£)','range':[0,maxb*1.05]},
+                    hovermode='closest'
+                )
             }
-        }
 
-        return data, fig, message
+            final=bals[-1]
+            tot=final-P0
+            dbl=next((t for t,b in zip(tps,bals) if b>=2*P0),None)
+            dbl_msg=(f"Investment doubles in ~{dbl} years" if dbl else
+                     f"Does not double within {years_val} years")
+
+            summary= html.Ul([
+                html.Li(f"Initial Principal: £{P0:,.2f}"),
+                html.Li(f"Final Balance: £{final:,.2f}"),
+                html.Li(f"Total Interest Earned: £{tot:,.2f}"),
+                html.Li(dbl_msg)
+            ])
+
+            txt = f"After {years_val} years, the investment will be worth £{final:,.2f}."
+            cols = [
+                {'name':'Year','id':'Year'},
+                {'name':'Start Balance (£)','id':'Start'},
+                {'name':'Interest Earned (£)','id':'Interest'},
+                {'name':'Cumulative Interest (£)','id':'CumInterest'},
+                {'name':'End Balance (£)','id':'End'}
+            ]
+            return summary, txt, fig, rows, cols
+
+        except Exception as e:
+            return "", f"Error in input: {e}", {}, [], []
 
     return app
+
+# Standalone test
+if __name__=='__main__':
+    test_app = create_dash_app(server=None)
+    test_app.run_server(debug=True, port=8058)
