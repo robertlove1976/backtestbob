@@ -185,7 +185,7 @@ footer {
 }
 
 /* 3) Mobile styles */
-@media (max-width: 768px) {
+@media (max-width: 650px) {
   /* Hide desktop nav; show hamburger */
   .desktop-nav {
     display: none;
