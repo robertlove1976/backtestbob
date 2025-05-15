@@ -29,6 +29,7 @@
         align-items: center;
         justify-content: space-between;
         border-bottom: 1px solid #eee;
+        position: relative;
       }
       #logo {
         height: 40px;
@@ -175,41 +176,92 @@
         border-top: 1px solid #eee;
         margin-top: 3rem;
       }
+
+      /* — only nav‐toggle overrides below — */
+
+      /* hide mobile nav by default */
+      .hamburger,
+      .mobile-menu { display: none; }
+
+      /* desktop nav always flex */
+      .desktop-nav { display: flex; }
+
+      @media (max-width: 768px) {
+        /* hide desktop */
+        .desktop-nav { display: none; }
+        /* show hamburger icon */
+        .hamburger {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          width: 30px;
+          height: 24px;
+          cursor: pointer;
+        }
+        .hamburger div {
+          background: #111;
+          height: 3px;
+          border-radius: 2px;
+        }
+        /* mobile menu (hidden until “.open”) */
+        .mobile-menu {
+          display: none;
+          position: absolute;
+          top: 64px;    /* adjust to match header height */
+          right: 16px;
+          background: #fff;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+          border-radius: 4px;
+          flex-direction: column;
+          z-index: 200;
+        }
+        .mobile-menu.open {
+          display: flex;
+        }
+      }
     </style>
   </head>
   <body>
     <!-- Header/Nav -->
-<header>
-  <a href="/"><img src="{{ url_for('static', filename='backtestbob.png') }}" id="logo" alt="BacktestBob logo"></a>
+    <header>
+      <a href="{{ url_for('index') }}">
+        <img
+          src="{{ url_for('static', filename='backtestbob.png') }}"
+          id="logo"
+          alt="BacktestBob logo"
+        />
+      </a>
 
-  <!-- Desktop nav (hidden on mobile) -->
-  <nav class="navbar desktop-nav">
-    <div class="nav-item"><a href="{{ url_for('index') }}" class="nav-link">Home</a></div>
-    <div class="nav-item">
-      <span class="nav-link">Calculators ▾</span>
-      <div class="dropdown-content">
+      <!-- desktop nav -->
+      <nav class="navbar desktop-nav">
+        <div class="nav-item"><a href="{{ url_for('index') }}" class="nav-link">Home</a></div>
+        <div class="nav-item">
+          <span class="nav-link">Calculators ▾</span>
+          <div class="dropdown-content">
+            <a href="/dash/compound-interest/">Compound Interest</a>
+            <a href="/dash/pension-drawdown/">Pension Drawdown</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="{{ url_for('blog.list_posts') }}" class="nav-link">Blog</a></div>
+        <div class="nav-item"><a href="{{ url_for('admin.login') }}" class="nav-link">Admin</a></div>
+      </nav>
+
+      <!-- hamburger toggle -->
+      <div class="hamburger" id="hamburger-btn" aria-label="Toggle menu" role="button">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+
+      <!-- mobile nav -->
+      <nav class="mobile-menu" id="mobile-menu">
+        <a href="{{ url_for('index') }}">Home</a>
         <a href="/dash/compound-interest/">Compound Interest</a>
         <a href="/dash/pension-drawdown/">Pension Drawdown</a>
-      </div>
-    </div>
-    <div class="nav-item"><a href="{{ url_for('blog.list_posts') }}" class="nav-link">Blog</a></div>
-    <div class="nav-item"><a href="{{ url_for('admin.login') }}" class="nav-link">Admin</a></div>
-  </nav>
-
-  <!-- Hamburger icon (hidden on desktop) -->
-  <div class="hamburger">
-    <div></div><div></div><div></div>
-  </div>
-
-  <!-- Mobile menu (hidden by default) -->
-  <nav class="mobile-menu">
-    <a href="{{ url_for('index') }}">Home</a>
-    <a href="/dash/compound-interest/">Compound Interest</a>
-    <a href="/dash/pension-drawdown/">Pension Drawdown</a>
-    <a href="{{ url_for('blog.list_posts') }}">Blog</a>
-    <a href="{{ url_for('admin.login') }}">Admin</a>
-  </nav>
-</header>
+        <a href="{{ url_for('blog.list_posts') }}">Blog</a>
+        <a href="{{ url_for('admin.login') }}">Admin</a>
+      </nav>
+    </header>
 
     <!-- Page content -->
     <main>
@@ -220,12 +272,13 @@
     <footer>
       <p>© {{ current_year() }} BacktestBob</p>
     </footer>
-<script>
-  document.addEventListener('DOMContentLoaded',function(){
-    const ham = document.querySelector('.hamburger'),
-          menu = document.querySelector('.mobile-menu');
-    ham.addEventListener('click',()=> menu.classList.toggle('open'));
-  });
-</script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const ham  = document.getElementById('hamburger-btn'),
+              menu = document.getElementById('mobile-menu');
+        ham.addEventListener('click', () => menu.classList.toggle('open'));
+      });
+    </script>
   </body>
 </html>

@@ -170,23 +170,17 @@ footer {
   font-size: 0.9rem;
 }
 
-/* 1) Base desktop vs mobile nav */
+/* 1) By default: show desktop, hide hamburger & mobile-menu */
+.desktop-nav {
+  display: flex;
+}
 .hamburger,
 .mobile-menu {
   display: none;
 }
 
-/* 2) Table wrapper—you can wrap your compare table in
-   <div class="table-responsive">…</div> */
-.table-responsive {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-}
-
-/* 3) Mobile styles */
-@media (max-width: 650px) {
-  /* Hide desktop nav; show hamburger */
+/* 2) Mobile breakpoint: hide desktop, show hamburger */
+@media (max-width: 768px) {
   .desktop-nav {
     display: none;
   }
@@ -196,63 +190,42 @@ footer {
     justify-content: space-around;
     width: 30px;
     height: 24px;
-    cursor: pointer;
     margin-left: auto;
+    cursor: pointer;
   }
   .hamburger div {
     background: #111;
     height: 3px;
     border-radius: 2px;
   }
-
-  /* Mobile menu styles */
-  .mobile-menu {
-    display: none;
-    position: absolute;
-    top: 64px; /* adjust if your header height changes */
-    right: 16px;
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-    border-radius: 4px;
-    flex-direction: column;
-    min-width: 160px;
-    z-index: 200;
-  }
-  .mobile-menu.open {
-    display: flex;
-  }
-  .mobile-menu a {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #eee;
-    text-decoration: none;
-    color: #111;
-  }
-  .mobile-menu a:last-child {
-    border-bottom: none;
-  }
-
-  /* Make sure main content isn’t hidden behind the absolute menu */
-  body {
-    position: relative;
-  }
-
-  /* 4) Make tables scroll or reflow */
-  /* Wrap your table HTML in <div class="table-responsive">…</div> */
-  .table-responsive table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .table-responsive th,
-  .table-responsive td {
-    white-space: nowrap;
-    padding: 0.5rem;
-  }
-
-  /* 5) Slightly reduce padding/margins on small screens */
-  .container {
-    padding: 2rem 1rem;
-  }
 }
+
+/* 3) Mobile-menu toggle */
+.mobile-menu {
+  position: absolute;
+  top: 64px;      /* match your header height */
+  right: 16px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  border-radius: 4px;
+  flex-direction: column;
+  min-width: 160px;
+  z-index: 200;
+  display: none;  /* hidden by default even on mobile */
+}
+.mobile-menu.open {
+  display: flex;
+}
+.mobile-menu a {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #eee;
+  text-decoration: none;
+  color: #111;
+}
+.mobile-menu a:last-child {
+  border-bottom: none;
+}
+
 /* initially hide the mobile cards */
 .compare-cards {
   display: none;
