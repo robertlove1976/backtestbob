@@ -169,3 +169,131 @@ footer {
   margin-top: 2rem;
   font-size: 0.9rem;
 }
+
+/* 1) Base desktop vs mobile nav */
+.hamburger,
+.mobile-menu {
+  display: none;
+}
+
+/* 2) Table wrapper—you can wrap your compare table in
+   <div class="table-responsive">…</div> */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 3) Mobile styles */
+@media (max-width: 768px) {
+  /* Hide desktop nav; show hamburger */
+  .desktop-nav {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  .hamburger div {
+    background: #111;
+    height: 3px;
+    border-radius: 2px;
+  }
+
+  /* Mobile menu styles */
+  .mobile-menu {
+    display: none;
+    position: absolute;
+    top: 64px; /* adjust if your header height changes */
+    right: 16px;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    flex-direction: column;
+    min-width: 160px;
+    z-index: 200;
+  }
+  .mobile-menu.open {
+    display: flex;
+  }
+  .mobile-menu a {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #eee;
+    text-decoration: none;
+    color: #111;
+  }
+  .mobile-menu a:last-child {
+    border-bottom: none;
+  }
+
+  /* Make sure main content isn’t hidden behind the absolute menu */
+  body {
+    position: relative;
+  }
+
+  /* 4) Make tables scroll or reflow */
+  /* Wrap your table HTML in <div class="table-responsive">…</div> */
+  .table-responsive table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .table-responsive th,
+  .table-responsive td {
+    white-space: nowrap;
+    padding: 0.5rem;
+  }
+
+  /* 5) Slightly reduce padding/margins on small screens */
+  .container {
+    padding: 2rem 1rem;
+  }
+}
+/* initially hide the mobile cards */
+.compare-cards {
+  display: none;
+}
+
+/* style each mobile “card” */
+.compare-cards .card {
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+.compare-cards .card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-size: 1.1rem;
+}
+.compare-cards .card ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.compare-cards .card li {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+/* responsive switch */
+@media (max-width: 768px) {
+  /* hide the table on mobile */
+  .compare-table {
+    display: none;
+  }
+  /* show cards instead */
+  .compare-cards {
+    display: block;
+  }
+
+  /* tighten up container padding on small */
+  .container {
+    padding: 2rem 1rem;
+  }
+}

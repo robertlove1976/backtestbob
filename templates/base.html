@@ -179,30 +179,37 @@
   </head>
   <body>
     <!-- Header/Nav -->
-    <header>
-      <a href="{{ url_for('index') }}">
-        <img src="{{ url_for('static', filename='backtestbob.png') }}"
-             alt="BacktestBob logo" id="logo" />
-      </a>
-      <nav class="navbar">
-        <div class="nav-item">
-          <a href="{{ url_for('index') }}" class="nav-link">Home</a>
-        </div>
-        <div class="nav-item">
-          <span class="nav-link">Calculators ▾</span>
-          <div class="dropdown-content">
-            <a href="/dash/compound-interest/">Compound Interest</a>
-            <a href="/dash/pension-drawdown/">Pension Drawdown</a>
-          </div>
-        </div>
-        <div class="nav-item">
-          <a href="{{ url_for('blog.list_posts') }}" class="nav-link">Blog</a>
-        </div>
-        <div class="nav-item">
-          <a href="{{ url_for('admin.login') }}" class="nav-link">Admin</a>
-        </div>
-      </nav>
-    </header>
+<header>
+  <a href="/"><img src="{{ url_for('static', filename='backtestbob.png') }}" id="logo" alt="BacktestBob logo"></a>
+
+  <!-- Desktop nav (hidden on mobile) -->
+  <nav class="navbar desktop-nav">
+    <div class="nav-item"><a href="{{ url_for('index') }}" class="nav-link">Home</a></div>
+    <div class="nav-item">
+      <span class="nav-link">Calculators ▾</span>
+      <div class="dropdown-content">
+        <a href="/dash/compound-interest/">Compound Interest</a>
+        <a href="/dash/pension-drawdown/">Pension Drawdown</a>
+      </div>
+    </div>
+    <div class="nav-item"><a href="{{ url_for('blog.list_posts') }}" class="nav-link">Blog</a></div>
+    <div class="nav-item"><a href="{{ url_for('admin.login') }}" class="nav-link">Admin</a></div>
+  </nav>
+
+  <!-- Hamburger icon (hidden on desktop) -->
+  <div class="hamburger">
+    <div></div><div></div><div></div>
+  </div>
+
+  <!-- Mobile menu (hidden by default) -->
+  <nav class="mobile-menu">
+    <a href="{{ url_for('index') }}">Home</a>
+    <a href="/dash/compound-interest/">Compound Interest</a>
+    <a href="/dash/pension-drawdown/">Pension Drawdown</a>
+    <a href="{{ url_for('blog.list_posts') }}">Blog</a>
+    <a href="{{ url_for('admin.login') }}">Admin</a>
+  </nav>
+</header>
 
     <!-- Page content -->
     <main>
@@ -213,5 +220,12 @@
     <footer>
       <p>© {{ current_year() }} BacktestBob</p>
     </footer>
+<script>
+  document.addEventListener('DOMContentLoaded',function(){
+    const ham = document.querySelector('.hamburger'),
+          menu = document.querySelector('.mobile-menu');
+    ham.addEventListener('click',()=> menu.classList.toggle('open'));
+  });
+</script>
   </body>
 </html>
