@@ -323,3 +323,27 @@ footer {
   font-size: 0.9rem;
   border-radius: 4px;
 }
+/* Mailchimp form responsive override */
+#mc_embed_signup {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+#mc_embed_signup input[type="email"], 
+#mc_embed_signup input.button {
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+#mc_embed_signup_scroll {
+  text-align: left;
+}
+
+#mc_embed_signup .optionalParent {
+  width: 100% !important;
+}
+
+#mc_embed_signup .refferal_badge {
+  width: 180px !important; /* reduce logo slightly */
+  height: auto !important;
+}
