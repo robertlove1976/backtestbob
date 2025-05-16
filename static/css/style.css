@@ -270,3 +270,56 @@ footer {
     padding: 2rem 1rem;
   }
 }
+/* call-out box for Founder’s Letter */
+.founder-letter {
+  padding-top: 0;  /* remove extra top padding if needed */
+}
+
+.founder-box {
+  max-width: 600px;               /* slightly narrower */
+  margin: 1.5rem auto;            /* center with some vertical gap */
+  padding: 2rem;                  /* comfy padding */
+  background-color: #e8f3ff;      /* gentle tinted background */
+  border-radius: 8px;
+  text-align: left;               /* left-align text inside */
+}
+
+.founder-box p,
+.founder-box ul {
+  color: #333;
+  line-height: 1.6;
+}
+
+.founder-box ul {
+  margin-left: 1.25rem;
+}
+
+/* Signature styling */
+.signature {
+  margin-top: 1.5rem;
+  font-family: 'Pacifico', cursive;
+  font-size: 1.25rem;
+  color: #12232e;
+  text-align: left;
+}
+
+.sig-title {
+  display: block;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  color: #12232e;
+}
+
+.sig-email {
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0.25rem 0.5rem;
+  background-color: #0a1f44;  /* darker blue */
+  color: #fff !important;
+  text-decoration: none;
+  font-family: Arial, sans-serif;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}

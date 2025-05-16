@@ -1,167 +1,163 @@
-{% extends 'base.html' %}
-{% block title %}Backtest Like a Billionaire — BacktestBob{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>BacktestBob Newsletter</title>
+  <!-- Font -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* Reset & base */
+    * { margin:0; padding:0; box-sizing:border-box }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Merriweather', serif;
+      background: #0a1f44;
+      color: #fff;
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+    a { color: #81c6ff; text-decoration: none; }
+    a:hover { text-decoration: underline; }
 
-{% block content %}
+    /* Quick scroll link */
+    .scroll-link {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .scroll-link a {
+      font-size: 1.25rem;
+      font-weight: 700;
+      background: #81c6ff;
+      color: #0a1f44;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      display: inline-block;
+    }
 
-  <!-- Hero Section -->
-  <div class="container">
-    <h1>Backtest Like a Billionaire</h1>
-    <p class="subtitle">
-      Model real strategies. See real results.
-      <span class="highlight">No code required.</span>
-    </p>
-    <p>🚀 Join 500 early users testing $1M+ in virtual trades.</p>
-    <form method="POST" action="https://your-email-collector.com/submit">
-      <input type="email" name="email" placeholder="Enter your email" required />
-      <button type="submit">Join the Waitlist</button>
-    </form>
-    <p class="note">Free early access. Limited to 500 users. No card required.</p>
+    /* Letter container */
+    .letter-container {
+      max-width: 720px;
+      margin: 0 auto 3rem;
+      background: rgba(255,255,255,0.05);
+      padding: 2.5rem 2rem;
+      border-radius: 8px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-align: center;
+      color: #81c6ff;
+    }
+    p, li {
+      margin-bottom: 1rem;
+      font-size: 1.05rem;
+    }
+    ul { list-style: disc inside; margin-left: 1rem; }
+    .signature {
+      margin-top: 1.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* Waitlist signup */
+    .waitlist {
+      max-width: 480px;
+      margin: 0 auto 3rem;
+      background: #fff;
+      color: #0a1f44;
+      padding: 1.5rem;
+      border-radius: 6px;
+      text-align: center;
+    }
+    .waitlist h2 {
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      color: #0a1f44;
+    }
+    .waitlist input[type="email"] {
+      width: 100%;
+      padding: .75rem;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .waitlist button {
+      background: #0a1f44;
+      color: #fff;
+      border: none;
+      padding: .75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .waitlist button:hover {
+      background: #092136;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+    }
+    footer img {
+      height: 48px;
+      margin-bottom: 1rem;
+    }
+    footer p {
+      font-size: .9rem;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll link -->
+  <div class="scroll-link">
+    <a href="#waitlist">Join the Waitlist ↓</a>
   </div>
 
-  <!-- What You Can Do -->
-  <div class="container alt-section">
-    <h2>📈 What You Can Do With BacktestBob</h2>
-    <p class="section">
-      Run historical backtests on real stock data without writing a single line of
-      code. Choose from proven strategies like value, momentum, or build your own.
-      Simulate portfolio outcomes and discover what really works.
-    </p>
-  </div>
+  <!-- Founder’s Letter -->
+  <div class="letter-container">
+    <h1>A Letter from Our Founder</h1>
 
-  <!-- Features -->
-  <div class="container">
-    <h2>✨ Features</h2>
-    <div class="grid">
-      <div>
-        <strong>⚡ Lightning Backtests</strong><br>
-        Get results instantly on 30+ years of data.
-      </div>
-      <div>
-        <strong>🧠 See which stocks each strategy suggests investing in</strong><br>
-        The exact backtest strategy applied to current markets
-      </div>
-      <div>
-        <strong>📊 See Performance for Winning Strategies</strong><br>
-        Discount Cash Flow, Custom Acquirers Multiple, Custom Magic Formula, Backtest Bob Composite (lower volatility/stunning performance)
-      </div>
-      <div>
-        <strong>📎 See the EXACT trades taken for each strategy</strong><br>
-        Exact trades. Return Percentage for each trade.
-      </div>
-    </div>
-  </div>
+    <p>Hi there—Bob here. If you’d told me 20 years ago that I’d pour my hard-earned savings into Cluff Natural Resources stock based on chat-forum hype and watch it evaporate down to just £0.17, I wouldn’t have believed you. But that’s exactly what happened—I invested thousands, endured the day-trading rollercoaster (and lost twice as fast), and felt overwhelmed by conflicting “expert” advice. Approaching 50, I don’t have decades to figure it all out.</p>
 
-  <!-- Compare to Your Current Tools -->
-  <div class="container alt-section">
-    <h2>🧮 Compare to Your Current Tools</h2>
-
-    <!-- Desktop Table -->
-    <div class="compare-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Tool</th>
-            <th>Setup Time</th>
-            <th>Coding Needed</th>
-            <th>Strategy Saving</th>
-            <th>Fun to Use</th>
-            <th>Run Against 4000+ Stocks</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Manual Research</td>
-            <td>🕐 Hours</td>
-            <td>✅ Some</td>
-            <td>❌ No</td>
-            <td>😐</td>
-            <td>😩 No Way!</td>
-          </tr>
-          <tr>
-            <td>Spreadsheet</td>
-            <td>🕐 Hours</td>
-            <td>❌ None</td>
-            <td>❌ No</td>
-            <td>😩</td>
-            <td>😩 Not Easily</td>
-          </tr>
-          <tr>
-            <td><strong>BacktestBob</strong></td>
-            <td>⚡ 2 Min</td>
-            <td>❌ None</td>
-            <td>✅ Yes</td>
-            <td>😎 Hell yes</td>
-            <td>😎 Absolutely Yes!</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Mobile Cards -->
-    <div class="compare-cards">
-      <div class="card">
-        <h3>Manual Research</h3>
-        <ul>
-          <li><strong>Setup Time:</strong> 🕐 Hours</li>
-          <li><strong>Coding Needed:</strong> ✅ Some</li>
-          <li><strong>Strategy Saving:</strong> ❌ No</li>
-          <li><strong>Fun to Use:</strong> 😐</li>
-          <li><strong>Run Against 4000+ Stocks:</strong> 😩 No Way!</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>Spreadsheet</h3>
-        <ul>
-          <li><strong>Setup Time:</strong> 🕐 Hours</li>
-          <li><strong>Coding Needed:</strong> ❌ None</li>
-          <li><strong>Strategy Saving:</strong> ❌ No</li>
-          <li><strong>Fun to Use:</strong> 😩</li>
-          <li><strong>Run Against 4000+ Stocks:</strong> 😩 Not Easily</li>
-        </ul>
-      </div>
-      <div class="card">
-        <h3>BacktestBob</h3>
-        <ul>
-          <li><strong>Setup Time:</strong> ⚡ 2 Min</li>
-          <li><strong>Coding Needed:</strong> ❌ None</li>
-          <li><strong>Strategy Saving:</strong> ✅ Yes</li>
-          <li><strong>Fun to Use:</strong> 😎 Hell yes</li>
-          <li><strong>Run Against 4000+ Stocks:</strong> 😎 Absolutely Yes!</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <!-- How It Works -->
-  <div class="container">
-    <h2>🧪 How It Works in 3 Clicks</h2>
-    <p class="section">
-      1️⃣ Choose or build a strategy<br>
-      2️⃣ Select your tickers<br>
-      3️⃣ Instantly view & export results
-    </p>
-    <p><em>(Live 5-second demo coming soon!)</em></p>
-  </div>
-
-  <!-- Final CTA -->
-  <div class="container alt-section">
-    <h2>🚀 Don’t waste another year on bad trades</h2>
-    <p class="section">Know what works — before you invest.</p>
-    <form method="POST" action="https://your-email-collector.com/submit">
-      <input type="email" name="email" placeholder="Enter your email" required />
-      <button type="submit">Get Early Access Now</button>
-    </form>
-    <p class="note">No card required · Cancel anytime · Launch deal ends soon 🚨</p>
-  </div>
-
-  <!-- Learn More -->
-  <div class="container">
-    <h2>🔍 Learn More</h2>
-    <ul style="list-style: none; padding: 0; font-size: 1rem;">
-      <li><a href="#">How to backtest a portfolio without code</a></li>
-      <li><a href="#">Best stock backtesting tools</a></li>
-      <li><a href="#">Backtest Trading212 stocks</a></li>
+    <p>I realized there had to be a better way:</p>
+    <ul>
+      <li><strong>Cut the noise</strong> of endless menus and opinions that contradict themselves.</li>
+      <li><strong>Show you what works</strong>—no more “trust me” strategies.</li>
+      <li><strong>Give you real numbers</strong> on 4,000+ stocks so you can decide for yourself.</li>
     </ul>
+
+    <p>That’s why I built <strong>BacktestBob</strong>: a one-click backtesting tool that runs proven strategies across decades of data and thousands of tickers. No code. No spreadsheets. Just “proof over promises”—see what really works.</p>
+
+    <p>If you’re done with financial FOMO and forum drama—welcome home. I’ll be right there with you: sharing my own backtests, celebrating wins, and learning from misses—together.</p>
+
+    <p class="signature">
+      — Bob<br>
+      <strong>Founder of BacktestBob</strong><br>
+      <a href="mailto:bob@backtestbob.com">bob@backtestbob.com</a>
+    </p>
   </div>
 
-{% endblock %}
+  <!-- Mailchimp Waitlist Form -->
+  <div id="waitlist" class="waitlist">
+    <h2>Join the Waitlist</h2>
+    <form action="https://your-mailchimp-url" method="POST">
+      <input type="email" name="EMAIL" placeholder="you@example.com" required>
+      <button type="submit">Get on the Beta →</button>
+    </form>
+  </div>
+
+  <footer>
+    <a href="/"><img src="/static/backtestbob.png" alt="BacktestBob logo"></a>
+    <p>© 2025 BacktestBob. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
