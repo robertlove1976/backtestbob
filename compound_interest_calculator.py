@@ -34,7 +34,29 @@ def create_dash_app(server=None, url_base_pathname='/dash/compound-interest/'):
   </head>
   <body>
     <header>
-      <!-- header content omitted for brevity -->
+      <a href="/"><img src="/static/backtestbob.png" id="logo" alt="BacktestBob logo" /></a>
+      <nav class="navbar desktop-nav">
+        <div class="nav-item"><a href="/" class="nav-link">Home</a></div>
+        <div class="nav-item">
+          <span class="nav-link">Calculators ▾</span>
+          <div class="dropdown-content">
+            <a href="/dash/compound-interest/">Compound Interest</a>
+            <a href="/dash/pension-drawdown/">Pension Drawdown</a>
+          </div>
+        </div>
+        <div class="nav-item"><a href="/blog/" class="nav-link">Blog</a></div>
+        <div class="nav-item"><a href="/admin/login" class="nav-link">Admin</a></div>
+      </nav>
+      <div class="hamburger">
+        <div></div><div></div><div></div>
+      </div>
+      <nav class="mobile-menu">
+        <a href="/">Home</a>
+        <a href="/dash/compound-interest/">Compound Interest</a>
+        <a href="/dash/pension-drawdown/">Pension Drawdown</a>
+        <a href="/blog/">Blog</a>
+        <a href="/admin/login">Admin</a>
+      </nav>
     </header>
     <main>{{%app_entry%}}</main>
     <footer><p>© {datetime.utcnow().year} BacktestBob</p></footer>
